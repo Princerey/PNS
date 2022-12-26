@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  font-family: "poppins";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+
+.header {
+  display: flex;
+  margin-right: 8px;
+  box-shadow: inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "poppins";
+  justify-content: center;
+  align-items: center;
+}
+.headerd {
+  display: flex;
+  margin-right: 8px;
+  box-shadow: inset 2px 2px 5px  rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "poppins";
+  justify-content: center;
+  align-items: center;
+}
+.header a , .header button {
+  margin-right: 8px;
+  color: #61677C;
+  box-shadow: -5px -5px 20px #FFF, 5px 5px 20px #BABECC;
+  transition: all 0.2s ease-in-out;
+    -webkit-appearance: none;
+    font-family: "poppins";
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-left: 6px;
+    padding-right:6px;
+    border-radius: 5px;
+  text-decoration: none;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+.headerd a ,.headerd button{
+  margin-right: 8px;
+  color: #61677C;
+  box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.05), 5px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease-in-out;
+    -webkit-appearance: none;
+    font-family: "poppins";
+    padding-top:3px;
+    padding-bottom:3px;
+    padding-left: 6px;
+    padding-right:6px;
+    border-radius: 5px;
+  text-decoration: none;
+  margin-left: 20px;
+  margin-right: 5px;
+}
+.header a:hover ,.header button:hover {
+  color: #8a0f53;
+  box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+}
+.header small {
+  color: #666;
+}
+.header .active {
+  color: #151405;
+}
+.headerd a:hover,.headerd button:hover {
+  color: #7b5b6b;
+  box-shadow: -2px -2px 5px rgba(255, 255, 255, 0.05), 2px 2px 3px rgba(0, 0, 0, 0.2);
+}
+.headerd small {
+  color: #666;
+}
+.headerd .active {
+  color: #ccbebe;
+}
+
+@media (max-width: 400px)
+{
+  .header a {
+    margin-right: 7px;
+      padding-top:2px;
+      padding-bottom:2px;
+      padding-left: 5px;
+      padding-right:5px;
+      border-radius: 5px;
+    margin-left: 15px;
+    margin-right: 3px;
+  }
+    .headerd a {
+    margin-right: 7px;
+      padding-top:2px;
+      padding-bottom:2px;
+      padding-left: 5px;
+      padding-right:5px;
+      border-radius: 5px;
+    margin-left: 15px;
+    margin-right: 3px;
+  }
+}
+.heigh{
+  min-height: 91.5vh;
+}
