@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { HashRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 import Login from './Login';
 import SignUp from './SignUp';
@@ -47,7 +47,7 @@ function App() {
   }, [darkMode]);
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <div>
           <div className={darkMode ? 'headerd' : 'header'}>
             <NavLink exact activeClassName="active" to="/" >Home</NavLink>
@@ -68,7 +68,7 @@ function App() {
             </Switch>
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     </div>
     
   );
