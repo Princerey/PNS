@@ -5,7 +5,7 @@ export const getData = () => {
   const token = getToken();
   axios.get("https://express-auth-jwt.onrender.com/auth/info", {
     headers: { "Authorization": `${token}` }}).then(response => {
-      document.getElementById('roh').innerHTML = (response.data.user.about);
+      //  document.getElementById('roh').innerHTML = (response.data.user.about);
     });
 }
 

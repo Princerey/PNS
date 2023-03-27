@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState,useEffect } from 'react';
 import curve from "./curve.png";
 import char from "./char.png";
 // import { Link } from 'react-router-dom';
@@ -10,24 +11,40 @@ import {MdOutlineKeyboardArrowRight} from 'react-icons/md'
 
 
 function Home() {
-    var darkMode;
-    const json = localStorage.getItem("site-dark-mode");
-    const currentMode = JSON.parse(json);
-    if (currentMode) {
-       darkMode=true;
-    } 
-    else {
-      darkMode=false;
-    }
+  const [darkMode, setDarkMode] = useState(false);
+      useEffect(() => {
+        const json = localStorage.getItem("site-dark-mode");
+        const currentMode = JSON.parse(json);
+        if (currentMode) {
+          setDarkMode(true);
+        } else {
+          setDarkMode(false);
+        }
+      }, []);
+    
+      useEffect(() => {
+        if (darkMode) {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
+        const json = JSON.stringify(darkMode);
+        localStorage.setItem("site-dark-mode", json);
+      }, [darkMode]);
 
   return (
-    
+    <div>
+    <div className={darkMode ? 'darkButton darkButton_dark' : 'darkButton'} onClick={() => setDarkMode(!darkMode)} >
+    <div class="darkButton__indicator"></div>
+  </div>
     <section>
+      
     <img src={curve} alt="wave" className="wave"/>
        <div className="contentBx">
-        <h2 className={darkMode ? 'headd' : 'head'}>Neumorphic Design</h2>
+        <h2 className={darkMode ? 'headd' : 'head'}>Personal Neumorphic Space</h2>
         <p className={darkMode ? 'pd' : 'p'}>
-           Neumorphic design, also known as "neumorphism" or "soft UI", is a minimal visual design style that uses monochromatic colors, subtle shadows and low contrasts ......
+        Multiply your efficiency and inprove your focus through your personalised space<br/>
+        Organised solution for your messy schedule
         </p>
        <a href="https://www.mockplus.com/blog/post/neumorphic-design-examples-ui-kits" target='blank'><p className={darkMode ? 'red2' : 'red1'}>Learn more<MdOutlineKeyboardArrowRight className='more'/></p></a> 
        </div>
@@ -40,6 +57,7 @@ function Home() {
             <li><a href="https://twitter.com/_Prince_rey_?t=3KjsFWNRyDIyUxnilGf8fA&s=09" target='blank'><FaTwitter/></a></li>
        </ul>
 </section>   
+</div>
   );
   
 }

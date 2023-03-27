@@ -11,20 +11,6 @@ import PublicRoute from './Utils/PublicRoute';
 // import { getToken, setUserSession } from './Utils/Common';
 
 function App() {
-  // const [authLoading, setAuthLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const token = getToken();
-  //   if (!token) {
-  //     return;
-  //   }
-  //     setUserSession(token);
-  //     setAuthLoading(false);
-  //   });
-
-  // if (authLoading && getToken()) {
-  //   return <div className="content">Checking Authentication...</div>
-  // }
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     const json = localStorage.getItem("site-dark-mode");
@@ -49,15 +35,15 @@ function App() {
     <div className="App">
       <HashRouter>
         <div>
-          <div className={darkMode ? 'headerd' : 'header'}>
+          <div className={darkMode ? 'header' : 'headerd'}>
             <NavLink exact activeClassName="active" to="/" >Home</NavLink>
             <NavLink activeClassName="active" to="/login">Login</NavLink>
             <NavLink activeClassName="active" to="/signup">SignUp</NavLink>
             <NavLink activeClassName="active" to="/dashboard">Dashboard</NavLink>
             {/* <button onClick={() => setDarkMode(!darkMode)}>Switch</button> */}
-            <div className={darkMode ? 'darkButton darkButton_dark' : 'darkButton'} onClick={() => setDarkMode(!darkMode)} >
+            {/* <div className={darkMode ? 'darkButton darkButton_dark' : 'darkButton'} onClick={() => setDarkMode(!darkMode)} >
               <div class="darkButton__indicator"></div>
-            </div>
+            </div> */}
           </div>
           <div className="content">
             <Switch>

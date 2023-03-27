@@ -12,7 +12,8 @@ import Sound from 'react-sound';
 import soothing from './peace.mp3'
 import study from './study.mp3'
 import cool from './cool.mp3'
-
+import{GoogleLogout } from "react-google-login"
+const clientId="75609989716-u868ui4qjdknqaa42854u3bg7jl5omt8.apps.googleusercontent.com";
 // import ScriptTag from 'react-script-tag';
 function Dashboard(props) {
   getData();
@@ -24,15 +25,27 @@ function Dashboard(props) {
   const home = () => {
     props.history.push('/');
   }
-  var darkMode;
-  const json = localStorage.getItem("site-dark-mode");
-  const currentMode = JSON.parse(json);
-  if (currentMode) {
-     darkMode=true;
-  } 
-  else {
-    darkMode=false;
-  }
+  const [darkMode, setDarkMode] = useState(false);
+      useEffect(() => {
+        const json = localStorage.getItem("site-dark-mode");
+        const currentMode = JSON.parse(json);
+        if (currentMode) {
+          setDarkMode(true);
+        } else {
+          setDarkMode(false);
+        }
+      }, []);
+    
+      useEffect(() => {
+        if (darkMode) {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
+        const json = JSON.stringify(darkMode);
+        localStorage.setItem("site-dark-mode", json);
+      }, [darkMode]);
+
   const [pausec, setIsActive] = useState(false);
   const handleClick = event => {
     setIsActive(current => !current);
@@ -237,11 +250,13 @@ function Dashboard(props) {
     "Friday",
     "Saturday",
   ];
- 
 const current = new Date();
   const date1 = `${dayWeek[current.getDay()]}, ${current.getDate()} ${months[current.getMonth()]} ${current.getFullYear()}`;
   return (
     <div className='heigh'>
+       <div className={darkMode ? 'darkButton darkButton_dark' : 'darkButton'} onClick={() => setDarkMode(!darkMode)} >
+              <div class="darkButton__indicator"></div>
+            </div>
      <h2 className={darkMode ? 'h2d' : 'h2l'}>Welcome&nbsp;<span id="roh"></span>&nbsp;to your Personal space</h2>
      <div className="container">
   <div className={darkMode ? 'componentsd' : 'componentsl'}>
@@ -269,14 +284,14 @@ const current = new Date();
 
 
 
-    <div class="container1">
+    <div className={darkMode ? "container1d" :"container1"}>
       <div class="display-date">
         <span id="day">{date1}</span>
       </div>
       </div>
 
-      <div class="container2">
-      <div class="display-time">{hour1}:{minute1}:{second1}</div>
+      <div className={darkMode ? "container2" :"container2l"}>
+      <div className={darkMode ? "display-time" :"display-timel"}>{hour1}:{minute1}:{second1}</div>
     </div>
 
     <div className="circle">
@@ -342,14 +357,20 @@ const current = new Date();
     <div className="icon" onClick={home}>
       <div className={darkMode ? "icon__homed" : "icon__home"}>
         <FaHome name="home"/></div>
-        <div className={darkMode ? "btn1d btn1__secondaryd" :"btn1 btn1__secondary"} onClick={handleLogout} ><p><AiOutlineLogout className='lock1'/>Logout</p></div>
+        <div  onClick={handleLogout} >
+   <GoogleLogout
+    render={renderProps => (
+      <div className={darkMode ? "btn1d btn1__secondaryd" :"btn1 btn1__secondary"} onClick={renderProps.onClick}><p><AiOutlineLogout className='lock1'/> Log Out</p></div>
+    )}
+  clientId={clientId}
+
+  /></div>
     </div>
+
    
   </div>
 </div>
     </div>
-    
-   
   );
 
 }

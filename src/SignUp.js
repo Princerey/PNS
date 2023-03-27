@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import {MdContacts} from "react-icons/md";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // import { setUserSession } from './Utils/Common';
 
 function SignUp(props) {
@@ -17,48 +19,78 @@ function SignUp(props) {
     setLoading(true);
     axios.post('https://express-auth-jwt.onrender.com/auth/signup', { email: email.value , password: password.value , about:about.value}).then(response => {
       setLoading(false);
-      alert(response.data.message);
+      toast.success(response.data.message);
       props.history.push('/login');
     }).catch(error => {
       setLoading(false);
+      toast.error("User already exists please enter new email address or try logging in." || error.response.data.message);
       if (error.response.status === 401) setError(error.response.data.message);
-      else setError("Something went wrong. Please try again later.");
+      else setError("User already exists please enter new email address or try logging in.");
   });
   }
-  var darkMode;
-    const json = localStorage.getItem("site-dark-mode");
-    const currentMode = JSON.parse(json);
-    if (currentMode) {
-       darkMode=true;
-    } 
-    else {
-      darkMode=false;
-    }
+  
+    const [darkMode, setDarkMode] = useState(false);
+      useEffect(() => {
+        const json = localStorage.getItem("site-dark-mode");
+        const currentMode = JSON.parse(json);
+        if (currentMode) {
+          setDarkMode(true);
+        } else {
+          setDarkMode(false);
+        }
+      }, []);
+    
+      useEffect(() => {
+        if (darkMode) {
+          document.body.classList.add("dark");
+        } else {
+          document.body.classList.remove("dark");
+        }
+        const json = JSON.stringify(darkMode);
+        localStorage.setItem("site-dark-mode", json);
+      }, [darkMode]);
 
 
   return (
+    <>
+    <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="dark"
+/>
     <div className='heigh'>
-    <form>
+       <div className={darkMode ? 'darkButton darkButton_dark' : 'darkButton'} onClick={() => setDarkMode(!darkMode)} >
+              <div class="darkButton__indicator"></div>
+            </div>
+    <form onSubmit={handleSignUp}>
   
   <div class="segment">
     <h1>Sign Up</h1>
   </div>
   
   <label>
-    <input className={darkMode ? 'idark' : 'ilight'} type="text" placeholder="Email Address" {...email} autoComplete="new-password"/>
+    <input className={darkMode ? 'idark' : 'ilight'} type="text" placeholder="Email Address" {...email} autoComplete="new-password" required/>
   </label>
   <label>
-    <input className={darkMode ? 'idark' : 'ilight'} type="password" placeholder="Password" {...password} autoComplete="new-password"/>
+    <input className={darkMode ? 'idark' : 'ilight'} type="password" placeholder="Password" {...password} autoComplete="new-password" required/>
   </label>
   <label>
-    <input className={darkMode ? 'idark' : 'ilight'} type="text" placeholder="Username" {...about} autoComplete="new-password"/>
+    <input className={darkMode ? 'idark' : 'ilight'} type="text" placeholder="Username" {...about} autoComplete="new-password" required/>
   </label>
   <div className='btn'>
-  {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
-  <button className={darkMode ? 'redd' : 'red'} type="button" onClick={handleSignUp} disabled={loading}><MdContacts className='lock'/> {loading ? 'Signing Up...' : ' Sign Up'}</button>
+  {/* {error && <><small style={{ color: 'red', fontFamily:"poppins" }}>{error}</small><br /></>}<br /> */}
+  <button className={darkMode ? 'redd' : 'red'} type="submit"  disabled={loading}><MdContacts className='lock'/> {loading ? 'Signing Up...' : ' Sign Up'}</button>
   </div>
 </form>
 </div>
+</>
   );
 }
 
